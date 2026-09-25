@@ -10,6 +10,7 @@ body {
     width: 550px;
     min-height: 100vh;
     margin: 0 auto;
+    background-color: #1c1c1c;
 }
 
 /* =================
@@ -21,7 +22,7 @@ header {
     align-items: center;
     justify-content: space-between;
     background-image: url("./assets/images/hero-header-img.png");
-    background-color: rgb(25, 24, 24);
+    background-color: #1c1c1c;
     height: 208px;
     color: white;
     padding: 0 2.875em;
@@ -30,4 +31,13 @@ header {
 header > a {
     color: white;
     text-decoration: none;
+}
+
+/* =================
+    Main
+   ================= */
+
+main {
+    background-color: white;
+    height: 100%;
 }
