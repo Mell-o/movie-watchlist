@@ -21,6 +21,16 @@ body {
     font-family: "Inter", sans-serif;
 }
 
+h1 {
+    font-size: 2.688rem; /* 43px */
+    font-weight: 800;
+}
+
+h2 {
+    font-size: 0.875rem; /* 14px */
+    font-weight: 700;
+}
+
 /* =================
     Header
    ================= */
