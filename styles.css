@@ -11,3 +11,23 @@ body {
     min-height: 100vh;
     margin: 0 auto;
 }
+
+/* =================
+    Header
+   ================= */
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-image: url("./assets/images/hero-header-img.png");
+    background-color: rgb(25, 24, 24);
+    height: 208px;
+    color: white;
+    padding: 0 2.875em;
+}
+
+header > a {
+    color: white;
+    text-decoration: none;
+}
