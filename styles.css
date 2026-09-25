@@ -126,6 +126,6 @@ button {
    ================= */
 
 main {
-    background-color: white;
+    background-color: var(--gray-50);
     height: 100%;
 }
