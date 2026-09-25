@@ -11,6 +11,13 @@ body {
     min-height: 100vh;
     margin: 0 auto;
     background-color: #1c1c1c;
+}
+
+/* =================
+    Typography
+   ================= */
+
+body {
     font-family: "Inter", sans-serif;
 }
 
