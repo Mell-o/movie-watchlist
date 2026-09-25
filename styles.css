@@ -1,3 +1,10 @@
+:root {
+    --gray-50: #F9FAFB;
+    --gray-300: #D1D5DB;
+    --gray-500: #6B7280;
+    --gray-700: #374151;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -39,8 +46,12 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     background-image: url("./assets/images/hero-header-img.png");
     background-color: #1c1c1c;
+
+    position: relative;
+
     height: 208px;
     color: white;
     padding: 0 2.875em;
@@ -50,6 +61,65 @@ header > a {
     color: white;
     text-decoration: none;
 }
+
+/* =================
+    Header - Search Bar
+   ================= */
+
+search {
+    position: absolute;
+    bottom: -20;
+    height: 38px;
+    width: 462px;
+    border: 1px var(--gray-300) solid;
+    margin: 0 auto;
+    border-radius: 0.375em;
+}
+
+search > form {
+    display: flex;
+    height: 100%;
+}
+
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    position: relative;
+    border-radius: 0.375em 0em 0 0.375em;
+}
+
+img {
+    width: 15px;
+    height: 15px;
+    border: none;
+    position: absolute;
+    left: 15;
+}
+
+input[type=search] {
+    height: 100%;
+    width: 342px;
+    margin: 0;
+    border: none;
+    border-right: 1px var(--gray-300) solid;
+    border-radius: 0.375em 0em 0 0.375em;
+    padding: 0.563em 0 0.563em 3.125em;
+    color: var(--gray-500);
+}
+
+
+button {
+    margin: 0;
+    height: 100%;
+    width: 120px;
+    border: none;
+    border-radius: 0 0.375em 0.375em 0;
+    background-color: var(--gray-50);
+    color: var(--gray-700);
+    cursor: pointer;
+}
+
 
 /* =================
     Main
