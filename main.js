@@ -7,7 +7,7 @@ searchForm.addEventListener("submit", function(e) {
 
     const formData = new FormData(e.target)
     const movieSearchQuery = formData.get("query")
-    
+
     getMovie(movieSearchQuery)
 })
 
