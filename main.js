@@ -1,4 +1,5 @@
 const searchForm = document.querySelector(".search-form")
+const ombdApiBaseUrl = "http://www.omdbapi.com/?i=tt3896198&apikey=c971e1aa"
 
 
 searchForm.addEventListener("submit", function(e) {
