@@ -89,7 +89,7 @@ search > form {
     border-radius: 0.375em 0em 0 0.375em;
 }
 
-img {
+img.search-icon {
     width: 15px;
     height: 15px;
     border: none;
@@ -126,6 +126,14 @@ button {
    ================= */
 
 main {
+    display: flex;
+    flex-direction: column;
     background-color: var(--gray-50);
     height: 100%;
+}
+
+img.no-data-icon {
+    width: 148px;
+    height: 90px;
+    margin: 193px auto;
 }
