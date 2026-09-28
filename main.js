@@ -9,8 +9,6 @@ let moviePlotEl
 let movieImdbID
 let myMovies
 
-localStorage.clear()
-
 if (searchForm) {
     searchForm.addEventListener("submit", async function(e) {
         e.preventDefault()
@@ -182,6 +180,11 @@ function renderEmptyWatchList() {
     document.querySelector(".add-movies-wrapper").addEventListener("mouseleave", function(e) {
         e.target.children[0].children[0].src = "./assets/icons/add.png"
     })
+}
+
+async function renderWatchList(){
+    const moviesData = await getMoviesData(myMovies)
+    renderMovies(moviesData)
 }
 
 if (document.body.id === "watchlist") {
