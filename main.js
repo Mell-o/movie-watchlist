@@ -4,6 +4,8 @@ const moviesListEl = document.querySelector(".movies-list")
 const titleCharLimit = 25
 const genreTagsLimit = 3
 const plotCharLimit = 132
+let moviePlotEl
+let movieImdbID
 
 
 searchForm.addEventListener("submit", async function(e) {
@@ -75,9 +77,8 @@ const formatPlot = (plot, plotCharLimit) => {
 
 function renderMovies(moviesData) {
     const movieItemsHtml = moviesData.reduce((acc, {Poster: poster, Title: title, Ratings: ratings, Runtime: runtime, Genre: genre, Plot: plot, imdbID}) => {
-        console.log(poster)
         acc.push(`
-            <li class="movie-item" id=${imdbID}>
+            <li class="movie-item" id="${imdbID}">
                 <img class="movie-poster" alt="movie poster" src="${formatPoster(poster)}" onerror="this.onerrorr=null; this.src='./assets/images/broken-image.png';"/>
                 <div class="movie-details">
                     <div class="movie-header-row">
@@ -101,4 +102,21 @@ function renderMovies(moviesData) {
         return acc
     }, [])
     moviesListEl.innerHTML = movieItemsHtml.join("")
+
+    const readMoreBtns = document.querySelectorAll(".read-more-btn")
+
+    readMoreBtns.forEach(async readMoreBtn => {
+        readMoreBtn.addEventListener("click", async function(e) {
+            moviePlotEl = e.target.parentElement
+            movieImdbID = e.target.parentElement.parentElement.parentElement.id
+            moviePlotEl.innerText = await getFullPlot(movieImdbID)
+        })
+    })
+}
+
+async function getFullPlot(movieImdbID) {
+    const response = await fetch(`${ombdApiBaseUrl}&i=${movieImdbID}`)
+    const movie = await response.json()
+
+    return movie.Plot
 }
