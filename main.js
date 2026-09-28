@@ -7,6 +7,7 @@ const plotCharLimit = 132
 let moviePlotEl
 let movieImdbID
 
+localStorage.clear()
 
 searchForm.addEventListener("submit", async function(e) {
     e.preventDefault()
@@ -124,7 +125,20 @@ function renderMovies(moviesData) {
         addWrapper.addEventListener("mouseleave", function(e) {
             e.target.children[0].src = "./assets/icons/add.png"
             e.target.style.color = ""
-            console.log("hello!")
+        })
+    })
+
+    const addIcons = document.querySelectorAll(".add-icon")
+
+    addIcons.forEach(addIcon => {
+        addIcon.addEventListener("click", function(e) {
+            movieImdbID = e.target.parentElement.parentElement.parentElement.parentElement.id
+            const myMovies = JSON.parse(localStorage.getItem("myMovies")) || []
+            if (!myMovies.includes(movieImdbID)) {
+                myMovies.push(movieImdbID)
+                localStorage.setItem("myMovies", JSON.stringify(myMovies))
+
+            }
         })
     })
 }
@@ -132,6 +146,5 @@ function renderMovies(moviesData) {
 async function getFullPlot(movieImdbID) {
     const response = await fetch(`${ombdApiBaseUrl}&i=${movieImdbID}`)
     const movie = await response.json()
-
     return movie.Plot
 }
