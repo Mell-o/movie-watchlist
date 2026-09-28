@@ -1,4 +1,5 @@
 const searchForm = document.querySelector(".search-form")
+const inputBox = document.querySelector("input")
 const ombdApiBaseUrl = "http://www.omdbapi.com/?apikey=d56ba9f8"
 const moviesListEl = document.querySelector(".movies-list")
 const titleCharLimit = 25
@@ -22,9 +23,19 @@ searchForm.addEventListener("submit", async function(e) {
         renderMovies(moviesData)
     } else {
         moviesListEl.innerHTML = `<p class="no-results-text">Unable to find what you're looking for. Please try another search.</p>`
-        document.querySelector("input").value = "Searching something with no data"
+        inputBox.value = "Searching something with no data"
     }
 })
+
+inputBox.addEventListener("search", function(e) {
+    if (e.target.value === "") {
+        renderStartExploringIcon()
+    }
+})
+
+function renderStartExploringIcon() {
+    moviesListEl.innerHTML = `<img class="start-exploring-icon" src="./assets/icons/start-exploring.png" alt="film tape">`
+}
 
 
 async function getMovieIds(movieSearchQuery) {
@@ -149,3 +160,5 @@ async function getFullPlot(movieImdbID) {
     const movie = await response.json()
     return movie.Plot
 }
+
+renderStartExploringIcon()
