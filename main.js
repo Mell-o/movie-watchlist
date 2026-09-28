@@ -90,7 +90,7 @@ function renderMovies(moviesData) {
                         <span class="movie-runtime">${formatRuntime(runtime)}</span>
                         <span class="movie-genre">${formatGenre(genre, genreTagsLimit)}</span>
                         <div class="add-wrapper">
-                            <img class="add-icon" src="./assets/icons/add-1.png" />
+                            <img class="add-icon" src="./assets/icons/add.png" />
                             <div>Watchlist</div>
                         </div>
                     </div>
@@ -110,6 +110,22 @@ function renderMovies(moviesData) {
             moviePlotEl = e.target.parentElement
             movieImdbID = e.target.parentElement.parentElement.parentElement.id
             moviePlotEl.innerText = await getFullPlot(movieImdbID)
+        })
+    })
+
+    const addWrappers = document.querySelectorAll(".add-wrapper")
+
+    addWrappers.forEach(addWrapper => {
+        addWrapper.addEventListener("mouseenter", function(e) {
+            e.target.children[0].src = "./assets/icons/add-hover.png"
+            e.target.style.color = "#FFB60A"
+            console.log("hello!")
+        })
+
+        addWrapper.addEventListener("mouseleave", function(e) {
+            e.target.children[0].src = "./assets/icons/add.png"
+            e.target.style.color = ""
+            console.log("hello!")
         })
     })
 }
