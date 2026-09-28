@@ -162,13 +162,16 @@ img.start-exploring-icon {
     margin: 149px auto;
 }
 
-p.no-results-text {
+p.initial-text {
     margin: 9em auto 0;
-    width: 321px;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 1.125rem;
     color: #DFDDDD;
     text-align: center;
+}
+
+p#no-results-text {
+    width: 321px;
 }
 
 li.movie-item {
@@ -253,4 +256,25 @@ button.read-more-btn {
     padding: 0;
     color: #272727;
     cursor: pointer;
+}
+
+/* =================
+    Movies List - Watchlist
+   ================= */
+
+p#empty-watchlist-text {
+    width: 404px;
+}
+
+div.add-movies-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+    gap: 0.5em;
+}
+
+p.add-movies-text {
+    font-weight: 600;
+    color: #363636;
 }

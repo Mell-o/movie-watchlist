@@ -7,6 +7,7 @@ const genreTagsLimit = 3
 const plotCharLimit = 132
 let moviePlotEl
 let movieImdbID
+let myMovies
 
 localStorage.clear()
 
@@ -23,7 +24,7 @@ if (searchForm) {
             const moviesData = await getMoviesData(movieIds)
             renderMovies(moviesData)
         } else {
-            moviesListEl.innerHTML = `<p class="no-results-text">Unable to find what you're looking for. Please try another search.</p>`
+            moviesListEl.innerHTML = `<p class="initial-text" id="no-results-text">Unable to find what you're looking for. Please try another search.</p>`
             inputBox.value = "Searching something with no data"
         }
     })
@@ -149,7 +150,7 @@ function renderMovies(moviesData) {
     addIcons.forEach(addIcon => {
         addIcon.addEventListener("click", function(e) {
             movieImdbID = e.target.parentElement.parentElement.parentElement.parentElement.id
-            const myMovies = JSON.parse(localStorage.getItem("myMovies")) || []
+            myMovies = JSON.parse(localStorage.getItem("myMovies")) || []
             if (!myMovies.includes(movieImdbID)) {
                 myMovies.push(movieImdbID)
                 localStorage.setItem("myMovies", JSON.stringify(myMovies))
@@ -165,7 +166,34 @@ async function getFullPlot(movieImdbID) {
     return movie.Plot
 }
 
+function renderEmptyWatchList() {
+    moviesListEl.innerHTML = `
+        <p class="initial-text" id="empty-watchlist-text">Your watchlist is looking a little empty...</p>
+        <div class="add-movies-wrapper">
+            <a href="./index.html"><img class="add-icon" src="./assets/icons/add.png"></a>
+            <p class="add-movies-text">Let's add some movies</p>
+        </div>
+    `
+
+    document.querySelector(".add-movies-wrapper").addEventListener("mouseenter", function(e) {
+        e.target.children[0].children[0].src = "./assets/icons/add-hover.png"
+    })
+
+    document.querySelector(".add-movies-wrapper").addEventListener("mouseleave", function(e) {
+        e.target.children[0].children[0].src = "./assets/icons/add.png"
+    })
+}
+
+if (document.body.id === "watchlist") {
+    myMovies = JSON.parse(localStorage.getItem("myMovies")) || []
+    if (myMovies.length === 0) {
+        renderEmptyWatchList()
+    } else {
+        renderWatchList()
+    }
+}
 
 if (inputBox) {
     renderStartExploringIcon()
 }
+
