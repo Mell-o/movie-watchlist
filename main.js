@@ -61,7 +61,7 @@ const formatRuntime = (runtime) => {
 }
 
 const formatGenre = (genre, genreTagsLimit) => {
-    return genre === "N/A" ? "No genre tags" : genre.split(", ", 3).join(", ")
+    return genre === "N/A" ? "No genre tags" : genre.split(", ", genreTagsLimit).join(", ")
 }
 
 const formatPlot = (plot, plotCharLimit) => {
@@ -74,10 +74,10 @@ const formatPlot = (plot, plotCharLimit) => {
 }
 
 function renderMovies(moviesData) {
-    const movieItemsHtml = moviesData.reduce((acc, {Poster: poster, Title: title, Ratings: ratings, Runtime: runtime, Genre: genre, Plot: plot}) => {
+    const movieItemsHtml = moviesData.reduce((acc, {Poster: poster, Title: title, Ratings: ratings, Runtime: runtime, Genre: genre, Plot: plot, imdbID}) => {
         console.log(poster)
         acc.push(`
-            <li class="movie-item">
+            <li class="movie-item" id=${imdbID}>
                 <img class="movie-poster" alt="movie poster" src="${formatPoster(poster)}" onerror="this.onerrorr=null; this.src='./assets/images/broken-image.png';"/>
                 <div class="movie-details">
                     <div class="movie-header-row">
