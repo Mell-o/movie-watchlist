@@ -119,7 +119,6 @@ function renderMovies(moviesData) {
         addWrapper.addEventListener("mouseenter", function(e) {
             e.target.children[0].src = "./assets/icons/add-hover.png"
             e.target.style.color = "#FFB60A"
-            console.log("hello!")
         })
 
         addWrapper.addEventListener("mouseleave", function(e) {
