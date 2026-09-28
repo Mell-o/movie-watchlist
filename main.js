@@ -105,7 +105,7 @@ function renderMovies(moviesData) {
 
     const readMoreBtns = document.querySelectorAll(".read-more-btn")
 
-    readMoreBtns.forEach(async readMoreBtn => {
+    readMoreBtns.forEach(readMoreBtn => {
         readMoreBtn.addEventListener("click", async function(e) {
             moviePlotEl = e.target.parentElement
             movieImdbID = e.target.parentElement.parentElement.parentElement.id

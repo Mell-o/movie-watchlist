@@ -201,7 +201,8 @@ img.star-icon {
 
 div.movie-meta-row {
     display: flex;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
+    color: #111827;
     margin: 0 0 0.667em 0;
 }
 
@@ -216,7 +217,7 @@ span.movie-genre {
 div.add-wrapper {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 0.313em;
 }
 
 img.add-icon {
