@@ -38,6 +38,16 @@ h2 {
     font-weight: 700;
 }
 
+h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+p {
+    font-size: 0.875rem;
+    font-weight: 300;
+}
+
 /* =================
     Header
    ================= */
@@ -130,10 +140,107 @@ main {
     flex-direction: column;
     background-color: var(--gray-50);
     height: 100%;
+    overflow-y: auto;
+}
+
+
+/* =================
+    Movies List
+   ================= */
+
+ul.movies-list {
+    display: flex;
+    flex-direction: column;
+    width: 462px;
+    margin: 63px auto;
+    padding: 0;
 }
 
 img.no-data-icon {
     width: 148px;
     height: 90px;
-    margin: 193px auto;
+    margin: 149px auto;
+}
+
+li.movie-item {
+    display: grid;
+    list-style-type: none;
+    width: 100%;
+    grid-template-columns: 99px 1fr;
+    column-gap: 1.313em;
+}
+
+img.movie-poster {
+    width: 99px;
+    height: 100%;
+}
+
+div.movie-details {
+    display: flex;
+    flex-direction: column;
+    min-height: 148px;
+    margin: auto 0;
+}
+
+div.movie-header-row {
+    margin: 0.938em 0 0.688em 0;
+}
+
+h3.movie-title {
+    display: inline;
+    margin: 0 0.444em 0 0;
+}
+
+span.movie-ratings {
+    font-size: 0.75rem;
+}
+
+img.star-icon {
+    display: inline;
+}
+
+div.movie-meta-row {
+    display: flex;
+    font-size: 0.7rem;
+    margin: 0 0 0.667em 0;
+}
+
+span.movie-runtime {
+    margin: 0 1.583em 0 0;
+}
+
+span.movie-genre {
+    margin: 0 2.5em 0 0;
+}
+
+div.add-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+img.add-icon {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+p.movie-plot {
+    margin: 0 0 1.071em 0;
+    line-height: 1.4;
+    color: #6B7280;
+}
+
+hr {
+    width: 100%;
+    margin: 1.25em 0;
+    border: 0.063em solid #E5E7EB;
+}
+
+button.read-more-btn {
+    font-size: 0.75rem;
+    width: fit-content;
+    padding: 0;
+    color: #272727;
+    cursor: pointer;
 }
