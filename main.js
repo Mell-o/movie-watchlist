@@ -10,28 +10,32 @@ let movieImdbID
 
 localStorage.clear()
 
-searchForm.addEventListener("submit", async function(e) {
-    e.preventDefault()
+if (searchForm) {
+    searchForm.addEventListener("submit", async function(e) {
+        e.preventDefault()
 
-    const formData = new FormData(e.target)
-    const movieSearchQuery = formData.get("query")
+        const formData = new FormData(e.target)
+        const movieSearchQuery = formData.get("query")
 
-    const movieIds = await getMovieIds(movieSearchQuery)
+        const movieIds = await getMovieIds(movieSearchQuery)
 
-    if (movieIds.length > 0) {
-        const moviesData = await getMoviesData(movieIds)
-        renderMovies(moviesData)
-    } else {
-        moviesListEl.innerHTML = `<p class="no-results-text">Unable to find what you're looking for. Please try another search.</p>`
-        inputBox.value = "Searching something with no data"
-    }
-})
+        if (movieIds.length > 0) {
+            const moviesData = await getMoviesData(movieIds)
+            renderMovies(moviesData)
+        } else {
+            moviesListEl.innerHTML = `<p class="no-results-text">Unable to find what you're looking for. Please try another search.</p>`
+            inputBox.value = "Searching something with no data"
+        }
+    })
+}
 
-inputBox.addEventListener("search", function(e) {
-    if (e.target.value === "") {
-        renderStartExploringIcon()
-    }
-})
+if (inputBox) {
+    inputBox.addEventListener("search", function(e) {
+        if (e.target.value === "") {
+            renderStartExploringIcon()
+        }
+    })
+}
 
 function renderStartExploringIcon() {
     moviesListEl.innerHTML = `<img class="start-exploring-icon" src="./assets/icons/start-exploring.png" alt="film tape">`
@@ -161,4 +165,7 @@ async function getFullPlot(movieImdbID) {
     return movie.Plot
 }
 
-renderStartExploringIcon()
+
+if (inputBox) {
+    renderStartExploringIcon()
+}
