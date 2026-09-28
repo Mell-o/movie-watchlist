@@ -162,6 +162,15 @@ img.no-data-icon {
     margin: 149px auto;
 }
 
+p.no-results-text {
+    margin: 9em auto 0;
+    width: 321px;
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: #DFDDDD;
+    text-align: center;
+}
+
 li.movie-item {
     display: grid;
     list-style-type: none;

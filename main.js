@@ -21,7 +21,8 @@ searchForm.addEventListener("submit", async function(e) {
         const moviesData = await getMoviesData(movieIds)
         renderMovies(moviesData)
     } else {
-        console.log("No results!")
+        moviesListEl.innerHTML = `<p class="no-results-text">Unable to find what you're looking for. Please try another search.</p>`
+        document.querySelector("input").value = "Searching something with no data"
     }
 })
 
@@ -30,7 +31,7 @@ async function getMovieIds(movieSearchQuery) {
     const response = await fetch(`${ombdApiBaseUrl}&s=${movieSearchQuery}`)
     const movies = await response.json()
 
-    const movieIds = await movies.Search.map((movie) => movie.imdbID)
+    const movieIds = await (movies.Search ?? []).map((movie) => movie.imdbID)
 
     return movieIds ?? []
 }
