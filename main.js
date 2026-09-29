@@ -125,9 +125,15 @@ function renderMovies(moviesData) {
         `)
         return acc
     }, [])
-    
-    moviesListEl.innerHTML = movieItemsHtml.join("")
 
+    moviesListEl.innerHTML = movieItemsHtml.join("")
+    
+    setReadMoreBtnsBehavior()
+    setWatchlistActionHover()
+    setWatchlistActionIconBehavior()
+}
+
+function setReadMoreBtnsBehavior() {
     const readMoreBtns = document.querySelectorAll(".read-more-btn")
 
     readMoreBtns.forEach(readMoreBtn => {
@@ -137,9 +143,6 @@ function renderMovies(moviesData) {
             moviePlotEl.innerText = await getFullPlot(movieImdbID)
         })
     })
-
-    setWatchlistActionHover()
-    setWatchlistActionIconBehavior()
 }
 
 async function getFullPlot(movieImdbID) {
