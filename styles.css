@@ -152,7 +152,7 @@ ul.movies-list {
     display: flex;
     flex-direction: column;
     width: 462px;
-    margin: 3.938em auto 0;
+    margin: 3.938em auto 2.188em;
     padding: 0;
 }
 

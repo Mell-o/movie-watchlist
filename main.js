@@ -92,8 +92,18 @@ const formatPlot = (plot, plotCharLimit) => {
 
 }
 
+function renderMovieItemDivider(curMovieItemNum, lastMovieItemNum) {
+    if (curMovieItemNum !== lastMovieItemNum) {
+        return `<hr />`
+    }
+}
+
 function renderMovies(moviesData) {
+    const lastMovieItemNum = moviesData.length
+    let curMovieItemNum = 0
+
     const movieItemsHtml = moviesData.reduce((acc, {Poster: poster, Title: title, Ratings: ratings, Runtime: runtime, Genre: genre, Plot: plot, imdbID}) => {
+        curMovieItemNum++
         acc.push(`
             <li class="movie-item" id="${imdbID}">
                 <img class="movie-poster" alt="movie poster" src="${formatPoster(poster)}" onerror="this.onerrorr=null; this.src='./assets/images/broken-image.png';"/>
@@ -111,10 +121,11 @@ function renderMovies(moviesData) {
                     ${formatPlot(plot, plotCharLimit)}
                 </div>
             </li>
-            <hr />
+            ${renderMovieItemDivider(curMovieItemNum, lastMovieItemNum) || " "}
         `)
         return acc
     }, [])
+    
     moviesListEl.innerHTML = movieItemsHtml.join("")
 
     const readMoreBtns = document.querySelectorAll(".read-more-btn")
