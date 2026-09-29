@@ -5,6 +5,7 @@ const moviesListEl = document.querySelector(".movies-list")
 const titleCharLimit = 25
 const genreTagsLimit = 3
 const plotCharLimit = 132
+const currentPageId = document.body.id
 let moviePlotEl
 let movieImdbID
 let myMovies
@@ -105,10 +106,7 @@ function renderMovies(moviesData) {
                     <div class=movie-meta-row>
                         <span class="movie-runtime">${formatRuntime(runtime)}</span>
                         <span class="movie-genre">${formatGenre(genre, genreTagsLimit)}</span>
-                        <div class="add-wrapper">
-                            <img class="add-icon" src="./assets/icons/add.png" />
-                            <div>Watchlist</div>
-                        </div>
+                        <div class="watchlist-action">${renderWatchListAction()}</div>
                     </div>
                     ${formatPlot(plot, plotCharLimit)}
                 </div>
@@ -129,33 +127,8 @@ function renderMovies(moviesData) {
         })
     })
 
-    const addWrappers = document.querySelectorAll(".add-wrapper")
-
-    addWrappers.forEach(addWrapper => {
-        addWrapper.addEventListener("mouseenter", function(e) {
-            e.target.children[0].src = "./assets/icons/add-hover.png"
-            e.target.style.color = "#FFB60A"
-        })
-
-        addWrapper.addEventListener("mouseleave", function(e) {
-            e.target.children[0].src = "./assets/icons/add.png"
-            e.target.style.color = ""
-        })
-    })
-
-    const addIcons = document.querySelectorAll(".add-icon")
-
-    addIcons.forEach(addIcon => {
-        addIcon.addEventListener("click", function(e) {
-            movieImdbID = e.target.parentElement.parentElement.parentElement.parentElement.id
-            myMovies = JSON.parse(localStorage.getItem("myMovies")) || []
-            if (!myMovies.includes(movieImdbID)) {
-                myMovies.push(movieImdbID)
-                localStorage.setItem("myMovies", JSON.stringify(myMovies))
-
-            }
-        })
-    })
+    setWatchlistActionHover()
+    setWatchlistActionIconBehavior()
 }
 
 async function getFullPlot(movieImdbID) {
@@ -187,16 +160,88 @@ async function renderWatchList(){
     renderMovies(moviesData)
 }
 
-if (document.body.id === "watchlist") {
-    myMovies = JSON.parse(localStorage.getItem("myMovies")) || []
+function renderWatchListAction() {
+    if (currentPageId === "watchlist") {
+        return `
+            <img class="watchlist-action-icon" src="./assets/icons/remove.png" alt="minus icon" />
+            <p class="watchlist-action-text">Remove</p>
+        `
+    } else {
+        return `
+            <img class="watchlist-action-icon" src="./assets/icons/add.png" alt="plus icon" />
+            <p class="watchlist-action-text">Watchlist</p>
+        `
+    }
+}
+
+function setWatchlistActionHover() {
+    const watchlistActionEls = document.querySelectorAll(".watchlist-action")
+
+    if (currentPageId === "watchlist") {
+        watchlistActionEls.forEach(watchlistActionEl => {
+            watchlistActionEl.addEventListener("mouseenter", function(e) {
+                e.target.children[0].src = "./assets/icons/remove-hover.png"
+            })
+
+            watchlistActionEl.addEventListener("mouseleave", function(e) {
+                e.target.children[0].src = "./assets/icons/remove.png"
+            })
+        })
+    } else {
+        watchlistActionEls.forEach(watchlistActionEl => {
+            watchlistActionEl.addEventListener("mouseenter", function(e) {
+                e.target.children[0].src = "./assets/icons/add-hover.png"
+            })
+
+            watchlistActionEl.addEventListener("mouseleave", function(e) {
+                e.target.children[0].src = "./assets/icons/add.png"
+            })
+        })
+    }
+}
+
+function setWatchlistActionIconBehavior() {
+    const watchlistActionIcons = document.querySelectorAll(".watchlist-action-icon")
+    if (currentPageId === "watchlist") {
+        watchlistActionIcons.forEach(watchlistActionIcon => {
+            watchlistActionIcon.addEventListener("click", function(e) {
+                movieImdbID = e.target.parentElement.parentElement.parentElement.parentElement.id
+                myMovies = JSON.parse(localStorage.getItem("myMovies")) || []
+                if (myMovies.includes(movieImdbID)) {
+                    myMovies = myMovies.filter(movieId => movieId !== movieImdbID)
+                    localStorage.setItem("myMovies", JSON.stringify(myMovies))
+                    renderWatchlistPage()
+                }
+            })
+        })
+    } else {
+        watchlistActionIcons.forEach(watchlistActionIcon => {
+            watchlistActionIcon.addEventListener("click", function(e) {
+                movieImdbID = e.target.parentElement.parentElement.parentElement.parentElement.id
+                myMovies = JSON.parse(localStorage.getItem("myMovies")) || []
+                if (!myMovies.includes(movieImdbID)) {
+                    myMovies.push(movieImdbID)
+                    localStorage.setItem("myMovies", JSON.stringify(myMovies))
+
+                }
+            })
+        })
+    }
+}
+
+function renderWatchlistPage() {
     if (myMovies.length === 0) {
         renderEmptyWatchList()
     } else {
+        moviesListEl.style.margin = "2.188em auto 0"
         renderWatchList()
     }
 }
 
-if (inputBox) {
+if (currentPageId === "watchlist") {
+    myMovies = JSON.parse(localStorage.getItem("myMovies")) || []
+    renderWatchlistPage()
+} else if (inputBox) {
     renderStartExploringIcon()
 }
 

@@ -152,7 +152,7 @@ ul.movies-list {
     display: flex;
     flex-direction: column;
     width: 462px;
-    margin: 63px auto;
+    margin: 3.938em auto 0;
     padding: 0;
 }
 
@@ -216,6 +216,7 @@ div.movie-meta-row {
     font-size: 0.75rem;
     color: #111827;
     margin: 0 0 0.667em 0;
+    font-weight: 300;
 }
 
 span.movie-runtime {
@@ -226,16 +227,22 @@ span.movie-genre {
     margin: 0 2.5em 0 0;
 }
 
-div.add-wrapper {
+div.watchlist-action {
     display: flex;
     align-items: center;
     gap: 0.313em;
 }
 
-img.add-icon {
+img.watchlist-action-icon {
     width: 16px;
     height: 16px;
     cursor: pointer;
+}
+
+p.watchlist-action-text {
+    margin: 0;
+    font-size: 0.75rem;
+    color: #111827;
 }
 
 p.movie-plot {
