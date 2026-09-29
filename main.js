@@ -1,3 +1,6 @@
+let moviePlotEl
+let movieImdbID
+let myMovies
 const searchForm = document.querySelector(".search-form")
 const inputBox = document.querySelector("input")
 const ombdApiBaseUrl = "http://www.omdbapi.com/?apikey=d56ba9f8"
@@ -6,9 +9,7 @@ const titleCharLimit = 25
 const genreTagsLimit = 3
 const plotCharLimit = 132
 const currentPageId = document.body.id
-let moviePlotEl
-let movieImdbID
-let myMovies
+
 
 if (searchForm) {
     searchForm.addEventListener("submit", async function(e) {
@@ -37,11 +38,6 @@ if (inputBox) {
     })
 }
 
-function renderStartExploringIcon() {
-    moviesListEl.innerHTML = `<img class="start-exploring-icon" src="./assets/icons/start-exploring.png" alt="film tape">`
-}
-
-
 async function getMovieIds(movieSearchQuery) {
     const response = await fetch(`${ombdApiBaseUrl}&s=${movieSearchQuery}`)
     const movies = await response.json()
@@ -63,39 +59,10 @@ async function getMoviesData(movieIds) {
     return moviesData
 }
 
-const formatPoster = (poster) => {
-    return `${poster === "N/A" ? "./assets/images/no-poster.jpg" : poster}`
-}
-
-const formatTitle = (title, titleCharLimit) => {
-    return title.length > titleCharLimit ? `${title.slice(0, titleCharLimit)}...` : title
-}
-
-const formatRatings = (ratings) => {
-    return ratings.length > 0 ? ratings[0].Value.slice(0, 3) : "0.0"
-}
-
-const formatRuntime = (runtime) => {
-    return runtime === "N/A" ? "0 min" : runtime
-}
-
-const formatGenre = (genre, genreTagsLimit) => {
-    return genre === "N/A" ? "No genre tags" : genre.split(", ", genreTagsLimit).join(", ")
-}
-
-const formatPlot = (plot, plotCharLimit) => {
-    return plot === "N/A" 
-    ? `<p class="movie-plot">No description</p>`
-    : plot.length > plotCharLimit 
-    ? `<p class="movie-plot">${plot.slice(0, plotCharLimit).trim()}...<button class="read-more-btn">Read more</button></p>` 
-    : `<p class="movie-plot">${plot}</p>`
-
-}
-
-function renderMovieItemDivider(curMovieItemNum, lastMovieItemNum) {
-    if (curMovieItemNum !== lastMovieItemNum) {
-        return `<hr />`
-    }
+async function getFullPlot(movieImdbID) {
+    const response = await fetch(`${ombdApiBaseUrl}&i=${movieImdbID}`)
+    const movie = await response.json()
+    return movie.Plot
 }
 
 function renderMovies(moviesData) {
@@ -133,22 +100,14 @@ function renderMovies(moviesData) {
     setWatchlistActionIconBehavior()
 }
 
-function setReadMoreBtnsBehavior() {
-    const readMoreBtns = document.querySelectorAll(".read-more-btn")
-
-    readMoreBtns.forEach(readMoreBtn => {
-        readMoreBtn.addEventListener("click", async function(e) {
-            moviePlotEl = e.target.parentElement
-            movieImdbID = e.target.parentElement.parentElement.parentElement.id
-            moviePlotEl.innerText = await getFullPlot(movieImdbID)
-        })
-    })
+function renderStartExploringIcon() {
+    moviesListEl.innerHTML = `<img class="start-exploring-icon" src="./assets/icons/start-exploring.png" alt="film tape">`
 }
 
-async function getFullPlot(movieImdbID) {
-    const response = await fetch(`${ombdApiBaseUrl}&i=${movieImdbID}`)
-    const movie = await response.json()
-    return movie.Plot
+function renderMovieItemDivider(curMovieItemNum, lastMovieItemNum) {
+    if (curMovieItemNum !== lastMovieItemNum) {
+        return `<hr />`
+    }
 }
 
 function renderEmptyWatchList() {
@@ -186,6 +145,27 @@ function renderWatchListAction() {
             <p class="watchlist-action-text">Watchlist</p>
         `
     }
+}
+
+function renderWatchlistPage() {
+    if (myMovies.length === 0) {
+        renderEmptyWatchList()
+    } else {
+        moviesListEl.style.margin = "2.188em auto 0"
+        renderWatchList()
+    }
+}
+
+function setReadMoreBtnsBehavior() {
+    const readMoreBtns = document.querySelectorAll(".read-more-btn")
+
+    readMoreBtns.forEach(readMoreBtn => {
+        readMoreBtn.addEventListener("click", async function(e) {
+            moviePlotEl = e.target.parentElement
+            movieImdbID = e.target.parentElement.parentElement.parentElement.id
+            moviePlotEl.innerText = await getFullPlot(movieImdbID)
+        })
+    })
 }
 
 function setWatchlistActionHover() {
@@ -243,13 +223,33 @@ function setWatchlistActionIconBehavior() {
     }
 }
 
-function renderWatchlistPage() {
-    if (myMovies.length === 0) {
-        renderEmptyWatchList()
-    } else {
-        moviesListEl.style.margin = "2.188em auto 0"
-        renderWatchList()
-    }
+const formatPoster = (poster) => {
+    return `${poster === "N/A" ? "./assets/images/no-poster.jpg" : poster}`
+}
+
+const formatTitle = (title, titleCharLimit) => {
+    return title.length > titleCharLimit ? `${title.slice(0, titleCharLimit)}...` : title
+}
+
+const formatRatings = (ratings) => {
+    return ratings.length > 0 ? ratings[0].Value.slice(0, 3) : "0.0"
+}
+
+const formatRuntime = (runtime) => {
+    return runtime === "N/A" ? "0 min" : runtime
+}
+
+const formatGenre = (genre, genreTagsLimit) => {
+    return genre === "N/A" ? "No genre tags" : genre.split(", ", genreTagsLimit).join(", ")
+}
+
+const formatPlot = (plot, plotCharLimit) => {
+    return plot === "N/A" 
+    ? `<p class="movie-plot">No description</p>`
+    : plot.length > plotCharLimit 
+    ? `<p class="movie-plot">${plot.slice(0, plotCharLimit).trim()}...<button class="read-more-btn">Read more</button></p>` 
+    : `<p class="movie-plot">${plot}</p>`
+
 }
 
 if (currentPageId === "watchlist") {
