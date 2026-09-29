@@ -291,7 +291,6 @@ p.add-movies-text {
     Action Notification
    ================= */
 div.watchlist-action-notification {
-    display: flex;
     position: fixed;
     padding: 0.375em 0.75em;
     border-radius: 1em;
