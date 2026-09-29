@@ -3,7 +3,7 @@ let movieImdbID
 let myMovies
 const searchForm = document.querySelector(".search-form")
 const inputBox = document.querySelector("input")
-const ombdApiBaseUrl = "http://www.omdbapi.com/?apikey=d56ba9f8"
+const ombdApiBaseUrl = "https://www.omdbapi.com/?apikey=d56ba9f8"
 const moviesListEl = document.querySelector(".movies-list")
 const titleCharLimit = 25
 const genreTagsLimit = 3
