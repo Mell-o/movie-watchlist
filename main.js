@@ -151,9 +151,16 @@ function renderWatchlistPage() {
     if (myMovies.length === 0) {
         renderEmptyWatchList()
     } else {
-        moviesListEl.style.margin = "2.188em auto 0"
+        moviesListEl.style.margin = "2.188em auto"
         renderWatchList()
     }
+}
+
+function renderSuccessNotification() {
+    document.getElementById("success").style.display = "block";
+    setTimeout(function(){
+        document.getElementById("success").style.display = "none";
+    }, 2000)
 }
 
 function setReadMoreBtnsBehavior() {
@@ -216,7 +223,7 @@ function setWatchlistActionIconBehavior() {
                 if (!myMovies.includes(movieImdbID)) {
                     myMovies.push(movieImdbID)
                     localStorage.setItem("myMovies", JSON.stringify(myMovies))
-
+                    renderSuccessNotification()
                 }
             })
         })

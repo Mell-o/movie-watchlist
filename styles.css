@@ -3,6 +3,8 @@
     --gray-300: #D1D5DB;
     --gray-500: #6B7280;
     --gray-700: #374151;
+
+    --success-color: #05C793;
 }
 
 *, *::before, *::after {
@@ -136,7 +138,6 @@ button {
    ================= */
 
 main {
-    display: flex;
     flex-direction: column;
     background-color: var(--gray-50);
     height: 100%;
@@ -284,4 +285,28 @@ div.add-movies-wrapper {
 p.add-movies-text {
     font-weight: 600;
     color: #363636;
+}
+
+/* =================
+    Action Notification
+   ================= */
+div.watchlist-action-notification {
+    display: flex;
+    position: fixed;
+    padding: 0.375em 0.75em;
+    border-radius: 1em;
+    bottom: 25;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    height: fit-content;
+    opacity: 95%;
+    background-color: #1E1B18;
+    pointer-events: none;
+}
+
+div#success {
+    display: none;
+    color: var(--success-color);
 }
